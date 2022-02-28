@@ -1,0 +1,7 @@
+{
+  "name": "lj-ionic5",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
