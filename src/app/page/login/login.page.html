@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="loginZone">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked"> 用户名 </ion-label>
+        <ion-select [(ngModel)]="loginObj.id" interface="action-sheet" >
+          <ion-select-option *ngFor="let item of userList" [value]="item.id">
+            {{item.username}} - {{item.id}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">
+          密码</ion-label>
+        <ion-input type="password" [(ngModel)]="loginObj.password"> </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" class="ion-margin-top" (click)="login()"> 登录 </ion-button>
+  </div>
+  <p class="versionZone ion-text-center" color="light">
+    2020 © Copyrights 丽锦纺织 - {{getAppVersionAndEnvironment()}}:{{versionCode}}
+  </p>
+</ion-content>

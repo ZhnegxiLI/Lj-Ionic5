@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="exit()">
+        返回
+      </ion-button>
+    </ion-buttons>
+    <ion-title>添加货物</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveProductForm()" [disabled]="!productObj.validity" color="primary">
+        保存
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item style="border: 0px!important;">
+      <ion-label color="primary" position="stacked">货物名称*</ion-label>
+      <ionic-selectable item-content [(ngModel)]="productSelect" [ngModelOptions]="{standalone: true}"
+        [items]="products" itemTextField="name" [canSearch]="true" (onChange)="changeProduct()"
+        [disabled]="products.length === 0">
+      </ionic-selectable>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">产地</ion-label>
+      <ion-input type="text" readonly={{hadSubmit}} [(ngModel)]="productObj.adresseProduct"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">客方品名</ion-label>
+      <ion-input type="text" readonly={{hadSubmit}} [(ngModel)]="productObj.nameOffical"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">数量*</ion-label>
+      <ion-input type="text" readonly={{hadSubmit}} (change)="checkNumber('numberProduct')"
+        [(ngModel)]="productObj.numberProduct"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">单位*</ion-label>
+      <ion-input type="text"readonly={{hadSubmit}} [(ngModel)]="productObj.unitProduct"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">单价*</ion-label>
+      <ion-input type="text" readonly={{hadSubmit}} (change)="checkNumber('priceProduct');"
+        [(ngModel)]="productObj.priceProduct"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" interface="action-sheet" position="stacked">价类</ion-label>
+      <ion-select cancelText="取消" okText="确定" [disabled]="hadSubmit" [(ngModel)]="productObj.unitPriceType"
+        (ionChange)="changeUnitPriceType();changeTotalPrice()">
+        <ion-select-option value="1">米价</ion-select-option>
+        <ion-select-option value="2">单位价</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">金额*</ion-label>
+      <ion-input type="text" readonly={{hadSubmit}} (change)="checkNumber('totalPrice');fixeNumber('totalPrice')"
+        [(ngModel)]="productObj.totalPrice"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">*交货日期</ion-label>
+      <ion-datetime [disabled]="hadSubmit" displayFormat="YYYY年 MM月 DD日" pickerFormat="YYYY MM DD" max="2050" presentation="date"
+        [(ngModel)]="productObj.datePayProduct"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">已付数量</ion-label>
+      <ion-input type="text" disabled="true" [(ngModel)]="productObj.hadPaidProduct"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="stacked">备注</ion-label>
+      <ion-textarea readonly={{hadSubmit}} [(ngModel)]="productObj.descriptProduct"></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <ion-button *ngIf="modifMod && !hadSubmit" (click)="removeProduct()" color="danger" block>删除</ion-button>
+</ion-content>

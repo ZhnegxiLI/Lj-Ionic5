@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JpushService } from './common/jpush.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,13 +7,31 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    {
+      title: '采购订单', children: [
+        { title: '编辑销售/采购订单', url: '/sals-order' },
+        { title: '查看采购订单', url: '/read-sals-order-categories', params: { commandTypeId: 'I', commandTypeLabel: '采购' } }
+      ]
+    },
+    {
+      title: '销售订单',  children: [
+        { title: '编辑销售/采购订单', url: '/sals-order' },
+        { title: '查看销售订单', url: '/read-sals-order-categories', params: { commandTypeId: 'O', commandTypeLabel: '销售' } }
+      ]
+    },
+    {
+      title: '审核销售/采购订单', url: '/validation-order-list', icon: 'document'
+    },
+    {
+      title: '我的设置', url: '/settings', icon: 'settings'
+    },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(private jpush: JpushService) {
+    this.jpush.initJpush();
+  }
+
+  getUsername() {
+    // TODO PLACE INTO COMMON FUNCTION
+    return localStorage.getItem('username') || '';
+  }
 }

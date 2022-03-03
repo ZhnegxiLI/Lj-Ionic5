@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>审核订单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="loading" class="spinner">
+  <ion-spinner class="ion-text-center"></ion-spinner>
+  <p class="ion-text-center">加载中...</p>
+</div>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <p *ngIf="noData" class="ion-text-center">暂无数据</p>
+
+  <div *ngFor="let item of list" class="ion-padding">
+    <h6 class="ion-text-center cardHead">{{item.commandTypeLabel}} -- {{item.statusLabel}}</h6>
+    <ion-card *ngFor="let i of item.commandDetails" (click)='showCommandDetail(i)' class="card">
+      <ion-card-header> 
+       <span>订单编号: {{i.commandeId}} </span> 
+       <span class="ion-float-right"><ion-badge [color]='item.labelColor'>{{item.commandTypeLabel}}</ion-badge></span>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid class="cardContent">
+          <ion-row inline>
+            <ion-col>修改日期 : {{i.commandeCreateDate}}</ion-col>
+          </ion-row>
+          <ion-row inline>
+            <ion-col>收取人 : {{i.receiver}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>单位 : {{i.type}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>订单日期 : {{i.commandeCreateDate}} </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>订单创建人 : {{i.creator}} </ion-col>
+              <ion-col>订单状态 : {{i.status}} </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

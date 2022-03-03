@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modalController.dismiss()"> 返回 </ion-button>
+    </ion-buttons>
+    <ion-title>筛选条件</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="popover-button" (click)="lauchSearch()">
+        搜索
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label mode="ios">创建人</ion-label>
+      <ion-select
+        multiple="true"
+        [(ngModel)]="searchCriteria.userIds"
+        [disabled]="userList?.length <= 0"
+      >
+        <ion-select-option
+          *ngFor="let u of userList"
+          [value]="u.id"
+          [disabled]="u.disabled"
+          >{{ u.username }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label mode="ios">至(日期)</ion-label>
+      <ion-datetime
+      [showClearButton]="true"
+        presentation="year-month"
+        [(ngModel)]="searchCriteria.fromDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label mode="ios">到(日期)</ion-label>
+      <ion-datetime
+      [showClearButton]="true"
+        presentation="date"
+        [(ngModel)]="searchCriteria.toDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label mode="ios">订单类型</ion-label>
+      <ion-select multiple="true" [(ngModel)]="searchCriteria.orderTypes">
+        <ion-select-option
+          *ngFor="let type of orderType"
+          [value]="type.code"
+          [disabled]="type.disabled"
+          >{{ type.label }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label mode="ios">订单状态</ion-label>
+      <ion-select multiple="true" [(ngModel)]="searchCriteria.orderStatus">
+        <ion-select-option
+          *ngFor="let status of orderStatus"
+          [value]="status.code"
+          >{{ status.label }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        mode="ios"
+        placeholder="订单编号"
+        clearInput
+        [(ngModel)]="filterOrderId"
+        (ngModelChange)="changeOrderId()"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item button (click)="lauchSearch()">搜索</ion-item>
+    <ion-item button (click)="resetAllCriteria()">重置</ion-item>
+  </ion-list>
+</ion-content>

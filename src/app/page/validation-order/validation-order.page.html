@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>审核订单</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="valideSalesOrder()" color="primary">
+        提交
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item> 
+      <ion-label position="stacked"> 发起人申请内容 </ion-label>
+      <ion-textarea [(ngModel)]="senderContent" rows="3" [disabled]='senderDisable'></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked"> 财务审批内容 </ion-label>  
+    <ion-textarea [(ngModel)]="financialContent" rows="3" [disabled]='financialDisable'></ion-textarea>
+  </ion-item>
+
+
+  <ion-item> 
+    <ion-label position="stacked"> 经理审批内容 </ion-label>  
+    <ion-textarea [(ngModel)]="managerContent" rows="3" [disabled]='managerDisable'> </ion-textarea>
+  </ion-item>
+</ion-content>

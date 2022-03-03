@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>观看{{commandTypeLabel}}订单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="loading" class="spinner">
+  <ion-spinner class="ion-text-center"></ion-spinner>
+  <p class="ion-text-center">加载中</p>
+</div>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="bubbles"
+      refreshingText="刷新..."
+    >
+    </ion-refresher-content>
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+
+  <p *ngIf="noData" class="ion-text-center">暂无数据</p>
+  <ion-list>
+    <ion-item
+      button
+      *ngFor="let item of orderStatus"
+      [routerLink]="['/read-sals-order']"
+      [queryParams]="{ commandTypeId: commandTypeId,
+      cateogryId: item.categoryId,
+      commandTypeLabel: commandTypeLabel}"
+    >
+      {{ item.categoryName }}
+      <ion-badge slot="end"> {{ item.count }}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

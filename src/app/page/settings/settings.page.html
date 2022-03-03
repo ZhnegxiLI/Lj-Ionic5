@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>设置</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="margin-top: 32px;">
+    <ion-item button lines="full">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/portrait.jpg" />
+      </ion-avatar>
+      <ion-label>
+        <h1> {{username}}</h1>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list-header lines="none">
+    <ion-label style="font-size:0.5em" > 我的订单 <ion-router-link class="viewAll ion-float-right ion-margin-end" routerLink="/view-command-with-filter">观看所有</ion-router-link></ion-label>
+    
+  </ion-list-header>
+  <ion-list>
+    <ion-item button [routerLink]="['/read-sals-order-categories']" [queryParams]="{  commandTypeLabel:'销售', commandTypeId  : 'O'}" >
+      <ion-icon name="document" slot="start"></ion-icon>
+      销售订单</ion-item>
+    <ion-item button [routerLink]="['/read-sals-order-categories']" [queryParams]="{  commandTypeLabel:'采购', commandTypeId  : 'I'}">
+      <ion-icon name="document" slot="start"></ion-icon>
+      采购订单</ion-item>
+    <ion-item button routerLink="/sals-order" >
+      <ion-icon name="create" slot="start"></ion-icon>
+      编辑订单
+    </ion-item> 
+    <ion-item button routerLink="/validation-order-list" [hidden]='managerPermission===false && financialPermission===false'>
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      审核订单
+    </ion-item>   
+    <ion-item button routerLink="/stock-list" >
+      <ion-icon name="dice-outline"  slot="start"></ion-icon>
+      库存列表
+    </ion-item>   
+   
+  </ion-list>
+
+  <ion-list class="ion-margin-top">
+    <ion-item button (click)="setPermission()" [hidden]='adminPermission===false' routerLink="/set-permission">
+      <ion-icon class="iconStyle" name="alert" slot="start"></ion-icon>
+      权限设置
+    </ion-item>
+
+    <ion-item button routerLink="/myinfo">
+      <ion-icon class="iconStyle" name="chatbubbles" slot="start"></ion-icon>
+      我的信息
+    </ion-item>
+    <ion-item button (click)="newFunctionality()" href="NewFunctionalityPage">
+      <ion-icon class="iconStyle" name="information-circle" slot="start"></ion-icon>
+      新功能
+    </ion-item>
+    <ion-item button routerLink="/myinfo">
+      <ion-icon class="iconStyle" name="mail" slot="start"></ion-icon>
+      关于我们
+    </ion-item>
+  </ion-list>
+  <ion-button color="danger" expand="full" (click)="logout()" class="ion-margin-top">退出登录</ion-button>
+</ion-content>

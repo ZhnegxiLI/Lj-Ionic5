@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>观看订单</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="popover-button" (click)="presentSearchModal()">
+        筛选
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p *ngIf="orderList?.length<=0" class="ion-text-center">暂无数据</p>
+
+  <ion-card
+    *ngFor="let item of orderList"
+    [routerLink]="['/sals-order']"
+    [queryParams]="{title: item.commandeId}"
+  >
+    <ion-card-header class="cardHead">
+      <span>{{item.commandeId}}</span>
+      <span class="ion-float-right">{{item.status}}</span>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="cardContent">
+        <ion-row inline>
+          <ion-col>  单位:{{item.type}}</ion-col>
+          <ion-col>  创建日期:{{item.commandeCreateDate  | date:'yyyy-MM-dd'}}</ion-col>
+        </ion-row>
+        <ion-row inline>
+          <ion-col> 订单创建人:{{item.commandeCreator}}</ion-col>
+          <ion-col>  {{item.commandeTypeLabel}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>最后更新时间: {{item.updateOn}} </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    [disabled]="disableInfiniteScroll"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载更多数据..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

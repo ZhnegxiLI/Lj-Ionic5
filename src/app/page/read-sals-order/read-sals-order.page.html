@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{commandTypeLabel}}订单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="loading" class="spinner">
+  <ion-spinner></ion-spinner>
+  <p class="ion-text-center" font-size-small>加载中</p>
+</div>
+
+<ion-content>
+  <ion-card
+    *ngFor="let order of salsOrders"
+    [routerLink]="['/sals-order']"
+    [queryParams]="{ title: order.commandeId }"
+  >
+    <ion-card-header class="cardHead">
+      <span> 订单编号 : {{order.commandeId}}</span>
+      <span class="ion-float-right"
+        ><ion-badge [color]="labelColor">{{commandTypeLabel}}</ion-badge></span
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="cardContent">
+        <ion-row inline>
+          <ion-col>修改日期 : {{order.updateOn}}</ion-col>
+        </ion-row>
+        <ion-row inline>
+          <ion-col>收取人 : {{order.receiver}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>单位 : {{order.type}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>订单日期 : {{order.commandeCreateDate | date:'yyyy-MM-dd'}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>订单创建人 : {{order.creator}} </ion-col>
+          <ion-col>订单状态 : {{order.status}} </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    [disabled]="disableInfiniteScroll"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载更多数据..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

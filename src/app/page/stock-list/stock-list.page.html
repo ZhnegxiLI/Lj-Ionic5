@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>库存列表</ion-title>
+    <ion-buttons slot="end">
+      <ion-button> 筛选 </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let item of stockList" style="margin-top: 5px">
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{item.CommodityLabel}} </mat-panel-title>
+        <mat-panel-description>
+          {{item.UnitQuantity}} ({{item.CurrentQuantity + item.Unit}})
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <div *ngFor="let subItem of item?.Details">
+          {{subItem.ClientId}} {{subItem.ClientName}} {{subItem.ClientType}}
+          {{subItem.CurrentQuantity}} {{subItem.InitialQuantity}}
+          {{subItem.UnitQuantity}}
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    [disabled]="disableInfiniteScroll"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载更多数据..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

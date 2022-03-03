@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>权限设置</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="savePermission()">
+         保存
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>  
+    <ion-label position="stacked">用户</ion-label>
+    <ion-select cancelText="取消" okText="确定" [(ngModel)]="userId" interface="action-sheet" (ngModelChange)="onChangeUser()">
+      <ion-select-option *ngFor="let user of userList" [value]="user.id"> {{user.id}} - {{user.username}} </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">权限</ion-label>
+    <ion-select cancelText="取消" okText="确定" multiple="true" [(ngModel)]="permissionIds">
+      <ion-select-option *ngFor="let permission of permissionList" [value]="permission.Id"> {{permission.Label}} </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
