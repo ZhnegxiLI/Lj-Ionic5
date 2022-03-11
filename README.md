@@ -9,3 +9,9 @@
 - Refactoring validation order page 
 - 3 page rest: product model, sals order(rename at last)
 - add infinite scroll for mat-select component https://www.npmjs.com/package/ng-mat-select-infinite-scroll 
+
+# Build projet 
+-  ionic capacitor copy [options]
+Inputs​: platform(android/ios)
+Options: --prod , --configuration =<conf>
+ 

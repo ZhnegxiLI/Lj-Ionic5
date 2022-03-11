@@ -37,7 +37,10 @@ export class LoginPage implements OnInit {
 
     if (token && userId) {
       try {
+        const loading = await this.utilsService.createLoading();
+        await loading.present();
         const result = await this.userService.checkAvailabilityOfToken(token).toPromise();
+        loading.dismiss();
         if (result.Success) {
           this.router.navigate(['settings'], { replaceUrl: true });
           return;
@@ -71,8 +74,11 @@ export class LoginPage implements OnInit {
   async login() {
     if (this.loginObj?.id && this.loginObj?.id !== '' && this.loginObj?.password && this.loginObj?.password !== '') {
       try {
+        const loading = await this.utilsService.createLoading();
+        await loading.present();
         const result = await this.userService.login(this.loginObj).toPromise();
         if (result?.Success && result?.Data?.token && result?.Data?.permission) {
+          this.utilsService.createToast('登录成功');
           // TODO ADD JPUSH CODE
           localStorage.clear();
           localStorage.setItem('token', result.Data.token);
@@ -95,6 +101,7 @@ export class LoginPage implements OnInit {
           this.jpushService.initJpush();
           this.jpushService.setTags([this.loginObj.id]);
           this.jpushService.getAllTags();
+          loading.dismiss();
 
           this.router.navigate(['settings'], { replaceUrl: true });
         }

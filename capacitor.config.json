@@ -1,6 +1,9 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "lj-ionic5",
+	"appId": "io.ionic.ljapp.prod",
+	"appName": "麗錦紡織",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"server":{
+		"cleartext": true
+	}
 }

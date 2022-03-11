@@ -9,11 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './ApiInterceptor';
 import { UtilsService } from './common/utils.service';
-import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { JpushService } from './common/jpush.service';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,7 +21,6 @@ import { MaterialModule } from './material/material.module';
     UtilsService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-    JPush,
     JpushService
   ],
   bootstrap: [AppComponent],
