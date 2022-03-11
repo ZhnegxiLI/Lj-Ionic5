@@ -37,7 +37,7 @@ export class UtilsService {
 
 
 
-  async createToast(msg: string) {
+  async createToast(msg: string, duration?: number) {
 
     const toast = await this.toastController.create({
       message: msg,
