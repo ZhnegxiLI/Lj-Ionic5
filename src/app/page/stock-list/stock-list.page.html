@@ -5,29 +5,40 @@
     </ion-buttons>
     <ion-title>库存列表</ion-title>
     <ion-buttons slot="end">
-      <ion-button> 筛选 </ion-button>
+      <ion-button (click)="showCommodityStockSearchCriteria()">
+        筛选
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let item of stockList" style="margin-top: 5px">
-      <mat-expansion-panel-header>
-        <mat-panel-title> {{item.CommodityLabel}} </mat-panel-title>
-        <mat-panel-description>
-          {{item.UnitQuantity}} ({{item.CurrentQuantity + item.Unit}})
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div>
-        <div *ngFor="let subItem of item?.Details">
-          {{subItem.ClientId}} {{subItem.ClientName}} {{subItem.ClientType}}
-          {{subItem.CurrentQuantity}} {{subItem.InitialQuantity}}
-          {{subItem.UnitQuantity}}
+  <div color="light" style="margin: 5px 10px 15px 10px">
+    <app-stock-list-search-zoom [searchCriteria]="searchCriteria" (criteriaChangeEvent)="criteriaChangeEvent($event)"></app-stock-list-search-zoom>
+  </div>
+
+  <div>
+    <p *ngIf="!stockList||stockList?.length===0" class="ion-text-center"> 暂无数据</p>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of stockList" style="margin-top: 5px">
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{item.CommodityLabel}} </mat-panel-title>
+          <mat-panel-description>
+            {{item.UnitQuantity}} ({{item.CurrentQuantity + item.Unit}})
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <p>{{item.CommodityLabel}} - {{item.CommodityId}} - {{item.CommodityTypeLabel}} - {{item.CommodityType2Code}}</p>
+          <p *ngFor="let subItem of item?.Details">
+            -
+            {{subItem.ClientType}} - {{subItem.ClientName}}({{subItem.ClientId}})
+            - {{subItem.UnitQuantity}} ({{subItem.CurrentQuantity + item.Unit}} )
+          </p>
         </div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+ 
 
   <ion-infinite-scroll
     threshold="100px"

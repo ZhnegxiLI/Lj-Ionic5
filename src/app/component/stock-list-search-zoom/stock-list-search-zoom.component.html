@@ -1,0 +1,45 @@
+<mat-accordion>
+  <mat-expansion-panel style="margin-top: 5px">
+    <mat-expansion-panel-header>
+      <mat-panel-title style="font-size: 1.2em"> 搜索条件 </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill" class="matForm" style="width: 100%">
+      <mat-label>部门编号</mat-label>
+      <mat-select
+        [multiple]="true"
+        #multiSelect
+        [(ngModel)]="searchCriteria.clientIdList"
+        (closed)="searchCriteriaChangeEvent($event)"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+            ngModel
+            [(ngModel)]="searchCriteriaFilter.clientTextSearch"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let item of departmentList" [value]="item.id"
+          >{{ item.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="matForm" style="width: 100%">
+      <mat-label>品名</mat-label>
+      <mat-select
+        [multiple]="true"
+        #multiSelect
+        [(ngModel)]="searchCriteria.commodityIdList"
+        (closed)="searchCriteriaChangeEvent($event)"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+            ngModel
+            [(ngModel)]="searchCriteriaFilter.commodityTextSearch"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let item of cargoList" [value]="item.id"> {{item.id}} - {{item.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>

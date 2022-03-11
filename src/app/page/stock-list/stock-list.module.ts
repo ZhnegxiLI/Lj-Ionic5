@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { StockListPageRoutingModule } from './stock-list-routing.module';
 
 import { StockListPage } from './stock-list.page';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MaterialModule } from 'src/app/material/material.module';
+import { StockListSearchZoomComponent } from 'src/app/component/stock-list-search-zoom/stock-list-search-zoom.component';
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FormsModule,
     IonicModule,
     StockListPageRoutingModule,
-    MatExpansionModule
+    MaterialModule
   ],
-  declarations: [StockListPage]
+  declarations: [StockListPage, StockListSearchZoomComponent]
 })
 export class StockListPageModule {}

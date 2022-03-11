@@ -10,8 +10,6 @@ export class CommodityStockService {
   constructor(public http: HttpClient) { }
 
   getCommodityStock(params: any): Observable<any> {
-    return this.http.get(this.baseurl + 'api/commodity-stock', {
-      params
-    });
+    return this.http.post(this.baseurl + 'api/commodity-stock', params);
   }
 }

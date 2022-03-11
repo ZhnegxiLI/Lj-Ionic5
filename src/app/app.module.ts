@@ -13,10 +13,12 @@ import { JPush } from '@jiguang-ionic/jpush/ngx';
 import { JpushService } from './common/jpush.service';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicSelectableModule, BrowserAnimationsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+    IonicSelectableModule, BrowserAnimationsModule],
   providers: [
     UtilsService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

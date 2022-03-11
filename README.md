@@ -8,4 +8,4 @@
 - Reformat the http error handler 
 - Refactoring validation order page 
 - 3 page rest: product model, sals order(rename at last)
-- 
+- add infinite scroll for mat-select component https://www.npmjs.com/package/ng-mat-select-infinite-scroll 
