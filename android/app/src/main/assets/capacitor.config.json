@@ -3,7 +3,7 @@
 	"appName": "测试版",
 	"webDir": "www",
 	"bundledWebRuntime": false,
-	"server":{
+	"server": {
 		"cleartext": true
 	}
 }
