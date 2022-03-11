@@ -22,10 +22,11 @@ export class FilterPopoverComponent implements OnInit {
     fromDate: null,
     toDate: null,
     orderStatus: null,
-    orderTypes: []
+    orderTypes: [],
+    filterOrderId: null
   };
 
-  private userList: User[] = [];
+  public userList: User[] = [];
 
   private reviewSalesOrder = false;
   private reviewPurchaseOrder = false;
@@ -47,7 +48,8 @@ export class FilterPopoverComponent implements OnInit {
       fromDate: null,
       toDate: null,
       orderStatus: null,
-      orderTypes: []
+      orderTypes: [],
+      filterOrderId: null
     };
 
     this.preInit();

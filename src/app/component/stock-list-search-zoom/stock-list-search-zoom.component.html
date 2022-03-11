@@ -10,7 +10,7 @@
         [multiple]="true"
         #multiSelect
         [(ngModel)]="searchCriteria.clientIdList"
-        (closed)="searchCriteriaChangeEvent($event)"
+        (closed)="searchCriteriaChangeEvent()"
       >
         <mat-option>
           <ngx-mat-select-search
@@ -30,7 +30,7 @@
         [multiple]="true"
         #multiSelect
         [(ngModel)]="searchCriteria.commodityIdList"
-        (closed)="searchCriteriaChangeEvent($event)"
+        (closed)="searchCriteriaChangeEvent()"
       >
         <mat-option>
           <ngx-mat-select-search

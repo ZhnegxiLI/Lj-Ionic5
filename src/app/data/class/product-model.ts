@@ -30,4 +30,8 @@ export class ProductModel {
             return 0;
         }
     }
+
+    set totalPrice(value){
+        this.totalPrice = value;
+    }
 }

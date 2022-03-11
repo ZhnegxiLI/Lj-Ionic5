@@ -9,13 +9,17 @@
           <div *ngFor="let p of appPages">
             <ion-menu-toggle *ngIf="p.url">
               <ion-item
-              lines="none"
+                lines="none"
                 [routerLink]="p.url"
                 routerDirection="root"
                 routerLinkActive="active"
-                [queryParams]="p?.params"
+                [queryParams]="p?.params ?? null"
               >
-                <ion-icon [name]="p.icon" slot="start" *ngIf="p.icon"></ion-icon>
+                <ion-icon
+                  [name]="p.icon"
+                  slot="start"
+                  *ngIf="p.icon"
+                ></ion-icon>
                 <ion-label> {{ p.title }} </ion-label>
               </ion-item>
             </ion-menu-toggle>
@@ -40,7 +44,7 @@
               <ion-label> {{ p.title }} </ion-label>
             </ion-item>
 
-            <ion-list *ngIf="p.open" class="listSubList"> 
+            <ion-list *ngIf="p.open" class="listSubList">
               <ion-menu-toggle>
                 <ion-item
                   lines="none"
@@ -51,7 +55,11 @@
                   routerDirection="root"
                   routerLinkActive="active"
                 >
-                  <ion-icon [name]="sub.icon" slot="start" *ngIf="sub.icon"></ion-icon>
+                  <ion-icon
+                    [name]="sub?.icon"
+                    slot="start"
+                    *ngIf="sub?.icon"
+                  ></ion-icon>
                   <ion-label> {{ sub.title }} </ion-label>
                 </ion-item>
               </ion-menu-toggle>

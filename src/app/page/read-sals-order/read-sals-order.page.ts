@@ -17,7 +17,7 @@ export class ReadSalsOrderPage implements OnInit {
   public step = 7;
   public counter = 0;
   public totalCount: number;
-  private salsOrders: any[] = [];
+  public salsOrders: any[] = [];
   private userId: string;
   private hasChangeData = false;
 

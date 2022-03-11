@@ -56,7 +56,7 @@
     <ion-item>
       <ion-label color="primary" interface="action-sheet" position="stacked">价类</ion-label>
       <ion-select cancelText="取消" okText="确定" [disabled]="hadSubmit" [(ngModel)]="productObj.unitPriceType"
-        (ionChange)="changeUnitPriceType();changeTotalPrice()">
+        (ionChange)="changeUnitPriceType()">
         <ion-select-option value="1">米价</ion-select-option>
         <ion-select-option value="2">单位价</ion-select-option>
       </ion-select>

@@ -46,7 +46,7 @@
   </ion-list>
 
   <ion-list class="ion-margin-top">
-    <ion-item button (click)="setPermission()" [hidden]='adminPermission===false' routerLink="/set-permission">
+    <ion-item button  [hidden]='username!=="Admi"' routerLink="/set-permission">
       <ion-icon class="iconStyle" name="alert" slot="start"></ion-icon>
       权限设置
     </ion-item>
@@ -55,7 +55,7 @@
       <ion-icon class="iconStyle" name="chatbubbles" slot="start"></ion-icon>
       我的信息
     </ion-item>
-    <ion-item button (click)="newFunctionality()" href="NewFunctionalityPage">
+    <ion-item button>
       <ion-icon class="iconStyle" name="information-circle" slot="start"></ion-icon>
       新功能
     </ion-item>
