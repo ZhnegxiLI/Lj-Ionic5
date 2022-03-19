@@ -104,6 +104,9 @@
             },
             "ci": {
               "progress": false
+            },
+            "test": {
+              "browserTarget": "app:build:test"
             }
           }
         },
@@ -174,6 +177,9 @@
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
+            },
+            "test": {
+              "browserTarget": "app:build:test"
             }
           }
         },
@@ -187,6 +193,10 @@
             "production": {
               "cordovaBuildTarget": "app:ionic-cordova-build:production",
               "devServerTarget": "app:serve:production"
+            },
+            "test": {
+              "cordovaBuildTarget": "app:ionic-cordova-build:test",
+              "devServerTarget": "app:serve:test"
             }
           }
         }
