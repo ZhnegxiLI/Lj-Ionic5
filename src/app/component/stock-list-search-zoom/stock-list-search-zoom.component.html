@@ -15,6 +15,7 @@
         <mat-option>
           <ngx-mat-select-search
             [disableInitialFocus]="true"
+            placeholderLabel="搜索部门编号"
             ngModel
             [(ngModel)]="searchCriteriaFilter.clientTextSearch"
           ></ngx-mat-select-search>
@@ -32,15 +33,24 @@
         #multiSelect
         [(ngModel)]="searchCriteria.commodityIdList"
         (closed)="searchCriteriaChangeEvent()"
+        msInfiniteScroll
+        (infiniteScroll)="getNextCargoBatch()"
+        [complete]="offset === cargoList.length"
       >
         <mat-option>
           <ngx-mat-select-search
+            placeholderLabel="品名搜索"
             [disableInitialFocus]="true"
+            [disableScrollToActiveOnOptionsChanged]="true"
             ngModel
             [(ngModel)]="searchCriteriaFilter.commodityTextSearch"
+            (ngModelChange)="changeCargoSearchTextEvent()"
           ></ngx-mat-select-search>
         </mat-option>
-        <mat-option *ngFor="let item of cargoList" [value]="item.id">
+        <mat-option
+          *ngFor="let item of cargoOptions$ | async"
+          [value]="item.id"
+        >
           {{ item.id }} - {{ item.name }}
         </mat-option>
       </mat-select>

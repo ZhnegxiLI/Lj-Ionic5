@@ -46,6 +46,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     PortalModule,
     ScrollingModule,
     NgxMatSelectSearchModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectInfiniteScrollModule
   ]
 })
 export class MaterialModule { }

@@ -34,6 +34,7 @@
     "cordova-plugin-jcore": "^1.4.1",
     "cordova-plugin-jpush-capacitor": "^3.7.9",
     "ionic-selectable": "^4.9.0",
+    "ng-mat-select-infinite-scroll": "^3.0.1",
     "ngx-mat-select-search": "3.3.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
