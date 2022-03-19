@@ -10,7 +10,7 @@ import { OrderValidationService } from 'src/app/service/order-validation.service
 })
 export class ReadSalsOrderCategoriesPage {
 
-  orderStatus: any[];
+  orderStatus: any[] = [];
   loading = true;
   commandTypeId: string;
   commandTypeLabel: string;
