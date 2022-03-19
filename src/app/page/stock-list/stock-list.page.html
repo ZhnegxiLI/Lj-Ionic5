@@ -11,14 +11,17 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<div *ngIf="initLoading" class="spinner">
+  <ion-spinner class="ion-text-center"></ion-spinner>
+  <p class="ion-text-center">加载中</p>
+</div>
 <ion-content>
   <div color="light" style="margin: 5px 10px 15px 10px">
     <app-stock-list-search-zoom [searchCriteria]="searchCriteria" (criteriaChangeEvent)="criteriaChangeEvent($event)"></app-stock-list-search-zoom>
   </div>
 
   <div>
-    <p *ngIf="!stockList||stockList?.length===0" class="ion-text-center"> 暂无数据</p>
+    <p *ngIf="noData" class="ion-text-center noData"> 暂无数据</p>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let item of stockList" style="margin-top: 5px">
         <mat-expansion-panel-header>

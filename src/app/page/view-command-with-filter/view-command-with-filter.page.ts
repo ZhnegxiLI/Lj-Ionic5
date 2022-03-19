@@ -15,6 +15,7 @@ export class ViewCommandWithFilterPage implements OnInit {
 
   public step = 7;
   public counter = 0;
+  initLoading = false;
   private searchCriteria: any = {};
 
   constructor(public utilsService: UtilsService,
@@ -23,6 +24,10 @@ export class ViewCommandWithFilterPage implements OnInit {
 
   get disableInfiniteScroll() {
     return this.totalCount && this.totalCount <= this.step * this.counter;
+  }
+
+  get noData() {
+    return this.orderList.length <= 0 && this.initLoading === false;
   }
 
   ngOnInit() {
@@ -49,9 +54,6 @@ export class ViewCommandWithFilterPage implements OnInit {
   }
 
   async refreshData() {
-
-    const loading = await this.utilsService.createLoading();
-
     if (!this.utilsService.hasPermission('OrderModule_managerValidation')) {
       const userId = localStorage.getItem('userId');
       this.searchCriteria = { userIds: JSON.parse(userId) };
@@ -59,9 +61,9 @@ export class ViewCommandWithFilterPage implements OnInit {
 
     this.counter = 0;
     this.searchCriteria.begin = this.counter;
-
+    this.initLoading = true;
     this.loadData(null);
-    loading.dismiss();
+    this.initLoading = false;
   }
 
   doInfinite(infiniteScroll: any) {

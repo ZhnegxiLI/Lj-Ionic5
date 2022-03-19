@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="loading" class="spinner">
+<div *ngIf="initLoading" class="spinner">
   <ion-spinner class="ion-text-center"></ion-spinner>
   <p class="ion-text-center">加载中...</p>
 </div>
@@ -17,7 +17,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <p *ngIf="noData" class="ion-text-center">暂无数据</p>
+  <p *ngIf="noData" class="ion-text-center noData">暂无数据</p>
 
   <div *ngFor="let item of list" class="ion-padding">
     <h6 class="ion-text-center cardHead">{{item.commandTypeLabel}} -- {{item.statusLabel}}</h6>

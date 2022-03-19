@@ -11,22 +11,21 @@ import { OrderValidationService } from 'src/app/service/order-validation.service
 })
 export class ValidationOrderListPage implements OnInit {
   list: any[] = [];
-  loading = false;
+  initLoading = false;
   constructor(
     public utilsService: UtilsService,
     public orderValidationService: OrderValidationService,
     public router: Router
   ) { }
 
-  get noData(){
-    return this.list.length <= 0;
+  get noData() {
+    return this.list.length <= 0 && this.initLoading === false;
   }
 
-  ngOnInit() {
-  }
-
-  ionViewDidEnter() {
-    this.loadData();
+  async ngOnInit() {
+    this.initLoading = true;
+    await this.loadData();
+    this.initLoading = false;
   }
 
   showCommandDetail(infoOrder) {
@@ -44,7 +43,6 @@ export class ValidationOrderListPage implements OnInit {
   }
 
   async loadData() {
-    this.loading = true;
     const result = await this.orderValidationService.getSalesOrderValidationList(null, '').toPromise();
     if (result?.Success) {
       const validationList = result?.Data?.filter(p => p.statusId === '1' || p.statusId === '3');
@@ -53,7 +51,7 @@ export class ValidationOrderListPage implements OnInit {
     } else {
       this.utilsService.createErrorToast(result?.Msg);
     }
-    this.loading = false;
+
   }
 
 }

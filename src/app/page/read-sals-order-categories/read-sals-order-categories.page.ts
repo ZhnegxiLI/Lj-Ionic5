@@ -10,22 +10,28 @@ import { OrderValidationService } from 'src/app/service/order-validation.service
 })
 export class ReadSalsOrderCategoriesPage {
 
-  orderStatus: any[];
+  orderStatus: any[] = [];
   loading = true;
-  noData = false;
   commandTypeId: string;
   commandTypeLabel: string;
+  initLoading = false;
 
   constructor(public utilsService: UtilsService,
     public orderService: OrderValidationService,
     private route: ActivatedRoute,
     public router: Router) {
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       this.commandTypeId = params?.commandTypeId;
       this.commandTypeLabel = params?.commandTypeLabel;
-      this.loadData();
+      this.initLoading = true;
+      await this.loadData();
+      this.initLoading = false;
     });
+  }
+
+  get noData() {
+    return this.orderStatus.length <= 0 && this.initLoading === false;
   }
 
   async doRefresh(refresher) {
@@ -40,11 +46,9 @@ export class ReadSalsOrderCategoriesPage {
     if (f.Success) {
       this.loading = false;
       if (f.Data.length > 0) {
-        this.noData = false;
         this.orderStatus = f.Data;
       }
       else {
-        this.noData = true;
       }
     } else {
       this.utilsService.createErrorToast(f.Msg);

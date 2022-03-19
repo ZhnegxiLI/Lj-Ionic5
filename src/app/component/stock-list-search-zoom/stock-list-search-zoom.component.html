@@ -14,6 +14,7 @@
       >
         <mat-option>
           <ngx-mat-select-search
+            [disableInitialFocus]="true"
             ngModel
             [(ngModel)]="searchCriteriaFilter.clientTextSearch"
           ></ngx-mat-select-search>
@@ -34,11 +35,14 @@
       >
         <mat-option>
           <ngx-mat-select-search
+            [disableInitialFocus]="true"
             ngModel
             [(ngModel)]="searchCriteriaFilter.commodityTextSearch"
           ></ngx-mat-select-search>
         </mat-option>
-        <mat-option *ngFor="let item of cargoList" [value]="item.id"> {{item.id}} - {{item.name}} </mat-option>
+        <mat-option *ngFor="let item of cargoList" [value]="item.id">
+          {{ item.id }} - {{ item.name }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
   </mat-expansion-panel>

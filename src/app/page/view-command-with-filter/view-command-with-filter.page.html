@@ -11,10 +11,12 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<div *ngIf="initLoading" class="spinner">
+  <ion-spinner class="ion-text-center"></ion-spinner>
+  <p class="ion-text-center">加载中</p>
+</div>
 <ion-content>
-  <p *ngIf="orderList?.length<=0" class="ion-text-center">暂无数据</p>
-
+  <p *ngIf="noData" class="ion-text-center noData">暂无数据</p>
   <ion-card
     *ngFor="let item of orderList"
     [routerLink]="['/sals-order']"
@@ -27,17 +29,18 @@
     <ion-card-content>
       <ion-grid class="cardContent">
         <ion-row inline>
-          <ion-col>  单位:{{item.type}}</ion-col>
-          <ion-col>  创建日期:{{item.commandeCreateDate  | date:'yyyy-MM-dd'}}</ion-col>
+          <ion-col> 单位:{{item.type}}</ion-col>
+          <ion-col>
+            创建日期:{{item.commandeCreateDate | date:'yyyy-MM-dd'}}</ion-col
+          >
         </ion-row>
         <ion-row inline>
           <ion-col> 订单创建人:{{item.commandeCreator}}</ion-col>
-          <ion-col>  {{item.commandeTypeLabel}}</ion-col>
+          <ion-col> {{item.commandeTypeLabel}}</ion-col>
         </ion-row>
         <ion-row>
           <ion-col>最后更新时间: {{item.updateOn}} </ion-col>
         </ion-row>
-
       </ion-grid>
     </ion-card-content>
   </ion-card>

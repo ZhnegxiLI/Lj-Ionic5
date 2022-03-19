@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { JpushService } from 'src/app/common/jpush.service';
 import { UtilsService } from 'src/app/common/utils.service';
 import { User } from 'src/app/data/class/user';
@@ -24,20 +24,25 @@ export class LoginPage implements OnInit {
   constructor(public userService: UserService,
     public router: Router,
     public utilsService: UtilsService,
-    public jpushService: JpushService
+    public jpushService: JpushService,
+    public menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.initLoginPage();
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
   async initLoginPage() {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    const loading = await this.utilsService.createLoading();
 
     if (token && userId) {
       try {
-        const loading = await this.utilsService.createLoading();
         await loading.present();
         const result = await this.userService.checkAvailabilityOfToken(token).toPromise();
         loading.dismiss();
@@ -53,7 +58,10 @@ export class LoginPage implements OnInit {
       const toast = await this.utilsService.createErrorToast('账号密码已过期，请重新登陆');
       await toast.present();
     }
+
+    await loading.present();
     this.loadUserList();
+    await loading.dismiss();
   }
 
   getAppVersionAndEnvironment() {
