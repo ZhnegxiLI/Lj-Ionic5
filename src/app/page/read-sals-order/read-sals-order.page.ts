@@ -13,7 +13,7 @@ export class ReadSalsOrderPage implements OnInit {
   commandTypeId: string;
   commandTypeLabel: string;
   labelColor: string;
-  loading = false;
+  initLoading = false;
   public step = 7;
   public counter = 0;
   public totalCount: number;
@@ -32,18 +32,19 @@ export class ReadSalsOrderPage implements OnInit {
     return this.totalCount && this.totalCount <= this.step * this.counter;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const params = this.route.snapshot.queryParams;
     this.categoryId = params.cateogryId;
     this.commandTypeId = params.commandTypeId;
     this.commandTypeLabel = params.commandTypeLabel;
     this.labelColor = this.commandTypeId === 'O' ? 'primary' : 'secondary';
-    this.loadData(null);
+    this.initLoading = true;
+    await this.loadData(null);
+    this.initLoading = false;
   }
 
   async loadData(infiniteScroll) {
     this.userId = localStorage.getItem('userId');
-    this.loading = true;
 
     const f = await this.orderService.getOrdersByUserId(this.userId, this.categoryId,
       this.commandTypeId, this.step, this.counter).toPromise();
@@ -56,7 +57,6 @@ export class ReadSalsOrderPage implements OnInit {
     } else {
       this.utilsService.createErrorToast(f.Msg);
     }
-    this.loading = false;
   }
 
   async ionViewDidEnter() {
