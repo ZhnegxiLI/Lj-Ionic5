@@ -22,6 +22,7 @@ export class StockListPage implements OnInit {
   };
   stockList: any[] = [];
   totalAmount: number;
+  initLoading = false;
 
   constructor(private commodityStockService: CommodityStockService,
     private utilsService: UtilsService,
@@ -31,18 +32,22 @@ export class StockListPage implements OnInit {
     return this.totalAmount && this.totalAmount <= this.searchCriteria.limit * this.searchCriteria.start;
   };
 
+  get noData() {
+    return this.stockList.length <= 0 && this.initLoading === false;
+  }
+
   ngOnInit() {
-    this.loadData();
+    this.refreshData();
   }
 
   criteriaChangeEvent(criteria: CommodityStockSearchCriteria) {
 
-    console.log(criteria);
+    console.log(criteria);// TODO REMOVE
     this.searchCriteria = criteria;
     this.searchCriteria.start = 0;
     this.stockList = [];
 
-    this.loadData();
+    this.refreshData();
   }
 
   async showCommodityStockSearchCriteria() {
@@ -59,6 +64,12 @@ export class StockListPage implements OnInit {
     await modal.present();
   }
 
+  async refreshData() {
+    this.initLoading = true;
+    await this.loadData();
+    this.initLoading = false;
+  }
+
 
   doInfinite(infiniteScroll: any) {
     this.searchCriteria.start = this.searchCriteria.start + 1;
@@ -66,8 +77,6 @@ export class StockListPage implements OnInit {
   }
 
   async loadData(infiniteScroll?: any) {
-    const loading = await this.utilsService.createLoading();
-    await loading.present();
     const result = await this.commodityStockService.getCommodityStock(this.searchCriteria).toPromise();
     if (result) {
       this.totalAmount = result.totalAmount;
@@ -76,7 +85,6 @@ export class StockListPage implements OnInit {
         infiniteScroll?.target.complete();
       }
     }
-    await loading.dismiss();
   }
 
 }

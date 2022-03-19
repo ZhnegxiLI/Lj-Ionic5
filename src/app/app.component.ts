@@ -28,6 +28,10 @@ export class AppComponent {
     },
     {
       open: false,
+      title: '库存列表', url: '/stock-list', icon: 'dice-outline'
+    },
+    {
+      open: false,
       title: '我的设置', url: '/settings', icon: 'settings'
     },
   ];

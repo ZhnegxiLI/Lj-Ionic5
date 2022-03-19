@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { UtilsService } from 'src/app/common/utils.service';
 
 @Component({
@@ -12,8 +13,11 @@ export class SettingsPage implements OnInit {
   financialPermission = false;
   managerPermission = false;
 
-  constructor(public router: Router, public utilsService: UtilsService) { }
+  constructor(public router: Router, public utilsService: UtilsService, public menuCtrl: MenuController) { }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
   ngOnInit() {
     this.username = localStorage.getItem('username');
 
