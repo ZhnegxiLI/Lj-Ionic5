@@ -12,49 +12,44 @@ on:
 jobs:
   build:
        name: Build APK
-    runs-on: ubuntu-latest
+       runs-on: ubuntu-latest
+       
+       steps:
+          - name: Checkout source
+            uses: actions/checkout@v2
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          - name: Setup java
+            uses: actions/setup-java@v1
+            with:
+                distribution: 'zulu'
+                java-version: '11'
 
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v2
+          - name: Setup Node.js
+            uses: actions/setup-node@v1
+            with:
+              node-version: 16.x
 
-      - name: Setup java
-        uses: actions/setup-java@v1
-        with:
-            distribution: 'zulu'
-            java-version: '11'
+          - name: Install app dependencies
+            run: npm install
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.x
+          - name: Build Svelte app
+            run: npm run build --configuration=test
 
-      - name: Install app dependencies
-        run: npm install
+          - name: Capacitor update
+            run: npx cap update
 
-      - name: Build Svelte app
-        run: npm run build --configuration=test
+          - name: Capacitor copy
+            run: npx cap copy
 
-      - name: Capacitor update
-        run: npx cap update
+          - name: Build app bundle
+            run: cd android && gradle bundle
 
-      - name: Capacitor copy
-        run: npx cap copy
+          - name: Build APK
+            run: bash ./gradlew assembleDebug --stacktrace
 
-      - name: Build app bundle
-        run: cd android && gradle bundle
-
-      - name: Build APK
-        run: bash ./gradlew assembleDebug --stacktrace
-          
-      - name: Upload release bundle
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-release
-          path: android/app/build/outputs/apk/debug/app-debug.apk 
-          retention-days: 60
+          - name: Upload release bundle
+            uses: actions/upload-artifact@v2
+            with:
+              name: app-release
+              path: android/app/build/outputs/apk/debug/app-debug.apk 
+              retention-days: 60
