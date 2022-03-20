@@ -45,7 +45,7 @@ jobs:
             run: cd android && gradle bundle
 
           - name: Build APK
-            run: bash ./gradlew assembleDebug --stacktrace
+            run: bash ./android/gradlew assembleDebug --stacktrace
 
           - name: Upload release bundle
             uses: actions/upload-artifact@v2
