@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">麗錦紡織(测试)</string>
+    <string name="title_activity_main">麗錦紡織(测试)</string>
+    <string name="package_name">io.ionic.ljapp.test</string>
+    <string name="custom_url_scheme">io.ionic.ljapp.test</string>
+</resources>

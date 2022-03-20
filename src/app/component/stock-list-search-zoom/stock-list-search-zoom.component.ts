@@ -18,9 +18,8 @@ export class StockListSearchZoomComponent implements OnInit {
   _departmentList: any[] = [];
   _cargoList: any[] = [];
 
-  cargoOptions = new BehaviorSubject<any[]>([]);
-  cargoOptions$: Observable<any[]>;
-  limit = 10;
+  cargoOptions$ = new BehaviorSubject<any[]>([]);
+  limit = 50;
   offset = 0;
 
   searchCriteriaFilter: CommodityStockSearchCriteria = {
@@ -29,14 +28,6 @@ export class StockListSearchZoomComponent implements OnInit {
   };
 
   constructor(private orderService: OrderValidationService) {
-    this.cargoOptions$ = this.cargoOptions.asObservable().pipe(
-      scan((acc, curr) => {
-        if (this.searchCriteriaFilter?.clientTextSearch && this.searchCriteriaFilter?.clientTextSearch !== '') {
-          return [...acc, ...curr];
-        }
-        return [...acc, ...curr];
-      }, [])
-    );
   }
 
   get departmentList() {
@@ -83,7 +74,7 @@ export class StockListSearchZoomComponent implements OnInit {
 
   getNextCargoBatch() {
     const result = this.cargoList.slice(0, this.offset + this.limit);
-    this.cargoOptions.next(result);
+    this.cargoOptions$.next(result);
     this.offset += this.limit;
   }
 }

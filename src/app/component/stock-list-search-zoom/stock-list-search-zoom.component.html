@@ -3,29 +3,6 @@
     <mat-expansion-panel-header>
       <mat-panel-title style="font-size: 1.2em"> 搜索条件 </mat-panel-title>
     </mat-expansion-panel-header>
-
-    <mat-form-field appearance="fill" class="matForm" style="width: 100%">
-      <mat-label>部门编号</mat-label>
-      <mat-select
-        [multiple]="true"
-        #multiSelect
-        [(ngModel)]="searchCriteria.clientIdList"
-        (closed)="searchCriteriaChangeEvent()"
-      >
-        <mat-option>
-          <ngx-mat-select-search
-            [disableInitialFocus]="true"
-            placeholderLabel="搜索部门编号"
-            ngModel
-            [(ngModel)]="searchCriteriaFilter.clientTextSearch"
-          ></ngx-mat-select-search>
-        </mat-option>
-        <mat-option *ngFor="let item of departmentList" [value]="item.id"
-          >{{ item.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
     <mat-form-field appearance="fill" class="matForm" style="width: 100%">
       <mat-label>品名</mat-label>
       <mat-select
@@ -55,5 +32,28 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="fill" class="matForm" style="width: 100%">
+      <mat-label>部门编号</mat-label>
+      <mat-select
+        [multiple]="true"
+        #multiSelect
+        [(ngModel)]="searchCriteria.clientIdList"
+        (closed)="searchCriteriaChangeEvent()"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+            [disableInitialFocus]="true"
+            placeholderLabel="搜索部门编号"
+            ngModel
+            [(ngModel)]="searchCriteriaFilter.clientTextSearch"
+          ></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let item of departmentList" [value]="item.id"
+          >{{ item.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  
   </mat-expansion-panel>
 </mat-accordion>
