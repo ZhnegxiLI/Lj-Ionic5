@@ -43,8 +43,8 @@ jobs:
             uses: damienaicheh/update-android-version-manifest-action@v1.0.0
             with:
               android-manifest-path: './android/app/src/main/AndroidManifest.xml'
-              version-code: ${{ github.run_id }}
-              version-name: ${{ github.run_id }}
+              version-code: ${{ github.run_number }}
+              version-name: ${{ github.run_number }}
               print-file: true
 
           - name: Make gradlew executable
@@ -67,8 +67,8 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-              tag_name: v_${{ github.run_id }}
-              release_name: Release v_${{ github.run_id }}
+              tag_name: v_${{ github.run_number }}
+              release_name: Release v_${{ github.run_number }}
               draft: false
               prerelease: false
 
