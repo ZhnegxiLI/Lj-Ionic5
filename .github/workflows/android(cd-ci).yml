@@ -40,6 +40,10 @@ jobs:
           - name: Build Android Dev APK
             run: ionic capacitor build android -c test
 
+          - name: Make gradlew executable
+            working-directory: ./android/
+            run: chmod +x ./gradlew
+
           - name: Generate the Android App Bundle
             working-directory: ./android/
             run: ./gradlew bundle
