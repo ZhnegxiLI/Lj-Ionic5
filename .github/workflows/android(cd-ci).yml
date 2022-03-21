@@ -37,8 +37,15 @@ jobs:
           - name: Copy Android
             run: ionic capacitor copy android
 
-          - name: Build Android Dev APK
+          - name: Build Android Test APK
             run: ionic capacitor build android -c test
+          - name: Update Android version number 
+            uses: damienaicheh/update-android-version-manifest-action@v1.0.0
+            with:
+              android-manifest-path: './android/app/src/main/AndroidManifest.xml'
+              version-code: ${GITHUB_RUN_ID}
+              version-name: ${GITHUB_RUN_ID}
+              print-file: true
 
           - name: Make gradlew executable
             working-directory: ./android/
@@ -60,8 +67,8 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-              tag_name: v$GITHUB_RUN_ID
-              release_name: Release v$GITHUB_RUN_ID
+              tag_name: v${GITHUB_RUN_ID}
+              release_name: Release v${GITHUB_RUN_ID}
               draft: false
               prerelease: false
 
