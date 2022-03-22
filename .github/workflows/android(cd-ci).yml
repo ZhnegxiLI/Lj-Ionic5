@@ -39,6 +39,7 @@ jobs:
 
           - name: Build Android Test APK
             run: ionic capacitor build android -c test
+
           - name: Update Android version number 
             uses: damienaicheh/update-android-version-manifest-action@v1.0.0
             with:
@@ -46,6 +47,14 @@ jobs:
               version-code: ${{ github.run_number }}
               version-name: ${{ github.run_number }}
               print-file: true
+
+          
+          - name: Bump version
+            uses: chkfung/android-version-actions@v1.1
+            with:
+              gradlePath: ./android/app/build.gradle 
+              versionCode: ${{github.run_number}}
+              versionName: 1.0.0
 
           - name: Make gradlew executable
             working-directory: ./android/
