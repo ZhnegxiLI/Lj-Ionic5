@@ -20,7 +20,8 @@ export class ViewCommandWithFilterPage implements OnInit {
 
   constructor(public utilsService: UtilsService,
     public orderService: OrderValidationService,
-    public modalController: ModalController) { }
+    public modalController: ModalController,
+    public datePipe: DatePipe) { }
 
   get disableInfiniteScroll() {
     return this.totalCount && this.totalCount <= this.step * this.counter;
@@ -75,7 +76,15 @@ export class ViewCommandWithFilterPage implements OnInit {
     const loading = await this.utilsService.createLoading();
     this.searchCriteria.step = this.step;
     this.searchCriteria.begin = this.counter;
-    const result = await this.orderService.advancedSalesOrderSearch(this.searchCriteria).toPromise();
+    const searchCriteria = { ...this.searchCriteria };
+
+    if (searchCriteria?.fromDate) {
+      searchCriteria.fromDate = this.datePipe.transform(searchCriteria.fromDate, 'yyyy-MM-dd');
+    }
+    if (searchCriteria?.toDate) {
+      searchCriteria.toDate = this.datePipe.transform(searchCriteria.toDate, 'yyyy-MM-dd');
+    }
+    const result = await this.orderService.advancedSalesOrderSearch(searchCriteria).toPromise();
 
     if (result.Success) {
       this.totalCount = result?.Data?.totalCount;

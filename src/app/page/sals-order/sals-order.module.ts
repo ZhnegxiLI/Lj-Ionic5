@@ -8,6 +8,7 @@ import { SalsOrderPageRoutingModule } from './sals-order-routing.module';
 
 import { SalsOrderPage } from './sals-order.page';
 import { IonicSelectableModule } from 'ionic-selectable';
+import { MaterialModule } from 'src/app/material/material.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +16,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicModule,
     SalsOrderPageRoutingModule,
     ReactiveFormsModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    MaterialModule
   ],
   declarations: [SalsOrderPage]
 })

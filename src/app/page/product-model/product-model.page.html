@@ -69,9 +69,17 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" position="stacked">*交货日期</ion-label>
-      <ion-datetime [disabled]="hadSubmit" displayFormat="YYYY年 MM月 DD日" pickerFormat="YYYY MM DD" max="2050" presentation="date"
-        [(ngModel)]="productObj.datePayProduct"></ion-datetime>
+        <mat-form-field appearance="legacy">
+          <mat-label>交货日期*</mat-label>
+          <input
+            matInput
+            [matDatepicker]="payProductDatePicker"
+            [(ngModel)]="productObj.datePayProduct"
+            readonly={{hadSubmit}} 
+          />
+          <mat-datepicker-toggle matSuffix [for]="payProductDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #payProductDatePicker></mat-datepicker>
+        </mat-form-field>
     </ion-item>
 
     <ion-item>

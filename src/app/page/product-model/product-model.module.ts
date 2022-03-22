@@ -8,6 +8,7 @@ import { ProductModelPageRoutingModule } from './product-model-routing.module';
 
 import { ProductModelPage } from './product-model.page';
 import { IonicSelectableModule } from 'ionic-selectable';
+import { MaterialModule } from 'src/app/material/material.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicModule,
     ProductModelPageRoutingModule,
     ReactiveFormsModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    MaterialModule
   ],
   declarations: [ProductModelPage]
 })

@@ -31,21 +31,37 @@
     </ion-item>
 
     <ion-item>
-      <ion-label mode="ios">至(日期)</ion-label>
-      <ion-datetime
-      [showClearButton]="true"
-        presentation="year-month"
-        [(ngModel)]="searchCriteria.fromDate"
-      ></ion-datetime>
+      <mat-form-field appearance="legacy">
+        <mat-label>至(日期)</mat-label>
+        <input
+          matInput
+          [matDatepicker]="fromDatePicker"
+          [(ngModel)]="searchCriteria.fromDate"
+        />
+        <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #fromDatePicker></mat-datepicker>
+      </mat-form-field>
     </ion-item>
+
     <ion-item>
-      <ion-label mode="ios">到(日期)</ion-label>
+      <mat-form-field appearance="legacy">
+        <mat-label>到(日期)</mat-label>
+        <input
+          matInput
+          [matDatepicker]="toDatepicker"
+          [(ngModel)]="searchCriteria.toDate"
+        />
+        <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #toDatepicker></mat-datepicker>
+      </mat-form-field>
+    </ion-item>
+    <!-- <ion-label mode="ios">到(日期)</ion-label>
       <ion-datetime
       [showClearButton]="true"
         presentation="date"
         [(ngModel)]="searchCriteria.toDate"
-      ></ion-datetime>
-    </ion-item>
+      ></ion-datetime> -->
+
     <ion-item>
       <ion-label mode="ios">订单类型</ion-label>
       <ion-select multiple="true" [(ngModel)]="searchCriteria.orderTypes">

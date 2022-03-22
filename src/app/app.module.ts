@@ -12,6 +12,7 @@ import { UtilsService } from './common/utils.service';
 import { JpushService } from './common/jpush.service';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,7 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UtilsService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-    JpushService
+    JpushService,
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

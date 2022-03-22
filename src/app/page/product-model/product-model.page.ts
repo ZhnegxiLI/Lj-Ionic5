@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -29,12 +30,18 @@ export class ProductModelPage implements OnInit {
     public utilsService: UtilsService,
     public orderService: OrderValidationService,
     public alertController: AlertController,
-    public modalController: ModalController) {
+    public modalController: ModalController,
+    public datePipe: DatePipe) {
   }
 
   ngOnInit() {
     if (this.infoProduct) {
       this.productObj = { ...this.infoProduct };
+      // Convert date for material datepicker
+      if (this.productObj.datePayProduct) {
+        this.productObj.datePayProduct = new Date(this.productObj.datePayProduct);
+      }
+
       this.productSelect = {
         id: this.infoProduct.idProduct,
         name: this.infoProduct.nameProduct,
@@ -49,7 +56,9 @@ export class ProductModelPage implements OnInit {
 
   saveProductForm() {
     console.log(this.productObj);
-    this.modalController.dismiss({ action: 1, content: this.productObj });
+    const productObj = { ...this.productObj };
+    productObj.datePayProduct = this.datePipe.transform(productObj.datePayProduct, 'yyyy-MM-dd');
+    this.modalController.dismiss({ action: 1, content: productObj });
   }
 
 

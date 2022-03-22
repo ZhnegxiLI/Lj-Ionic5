@@ -6,7 +6,7 @@ export class ProductModel {
     numberProduct: number;
     unitProduct: string;
     priceProduct: number;
-    datePayProduct: Date;
+    datePayProduct: Date | string;
     hadPaidProduct: boolean;
     descriptProduct: string;
     unitPriceType = '1';

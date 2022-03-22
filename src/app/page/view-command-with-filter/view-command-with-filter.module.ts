@@ -9,13 +9,14 @@ import { ViewCommandWithFilterPageRoutingModule } from './view-command-with-filt
 import { ViewCommandWithFilterPage } from './view-command-with-filter.page';
 import { FilterPopoverComponent } from 'src/app/component/filter-popover/filter-popover.component';
 import { DatePickerComponent } from 'src/app/component/date-picker/date-picker.component';
-
+import { MaterialModule } from 'src/app/material/material.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewCommandWithFilterPageRoutingModule
+    ViewCommandWithFilterPageRoutingModule,
+    MaterialModule
   ],
   declarations: [ViewCommandWithFilterPage, FilterPopoverComponent, DatePickerComponent]
 })

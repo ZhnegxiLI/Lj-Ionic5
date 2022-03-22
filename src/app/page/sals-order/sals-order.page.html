@@ -48,7 +48,21 @@
       </ion-item>
 
       <ion-item>
-        <ion-label color="primary" position="stacked">订单日期*</ion-label>
+        <mat-form-field appearance="legacy">
+          <mat-label>订单日期</mat-label>
+          <input
+            formControlName="date"
+            matInput
+            [disabled]="hadSubmit"
+            [matDatepicker]="fromDatePicker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fromDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #fromDatePicker></mat-datepicker>
+        </mat-form-field>
+        <!-- <ion-label color="primary" position="stacked">订单日期*</ion-label>
         <ion-datetime
           [disabled]="hadSubmit"
           displayFormat="YYYY年 MM月 DD日"
@@ -56,7 +70,7 @@
           presentation="date"
           formControlName="date"
           max="2050"
-        ></ion-datetime>
+        ></ion-datetime> -->
 
         <!-- <input type="date" formControlName="date" [readonly]="hadSubmit"> -->
       </ion-item>

@@ -6,6 +6,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { UtilsService } from 'src/app/common/utils.service';
 import { OrderValidationService } from 'src/app/service/order-validation.service';
 import { ProductModelPage } from '../product-model/product-model.page';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sals-order',
@@ -35,7 +36,8 @@ export class SalsOrderPage implements OnInit {
     private alertController: AlertController,
     private route: ActivatedRoute,
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private datepipe: DatePipe
   ) {
     this.orderForm = this.formBuilder.group({
       title: [''],
@@ -51,7 +53,7 @@ export class SalsOrderPage implements OnInit {
       userId: [''],
       deptId: [''],
       status: [''],
-      statusCode: 0,
+      statusCode: 1,// 默认状态:提交到财务
       messageForAuditor: [''],
       remarkfeedback: [''],
       type: ['O', Validators.required], //'I': 采购 'O': 销售
@@ -146,7 +148,7 @@ export class SalsOrderPage implements OnInit {
         deptId: orderDetail.departmentId,
         status: orderDetail.status,
         messageForAuditor: orderDetail.messageForAuditor,
-        statusCode: orderDetail.statusCode || 0,
+        statusCode: orderDetail.statusCode || 1, // 默认状态:提交到财务
         remarkfeedback: orderDetail.remarkfeedback,
         type: orderDetail.commandeType,
         seal: orderDetail.CachetPo || '',
@@ -229,7 +231,11 @@ export class SalsOrderPage implements OnInit {
     const loading = await this.utilsService.createLoading('正在保存，请稍等');
     await loading.present();
 
-    const result = await this.orderService.insertSalesOrderByOrderId(this.orderForm.value, this.listProduct).toPromise();
+    // Convert date
+    const orderFormCriteria = { ...this.orderForm.value };
+    orderFormCriteria.date = this.datepipe.transform(orderFormCriteria.date);
+
+    const result = await this.orderService.insertSalesOrderByOrderId(orderFormCriteria, this.listProduct).toPromise();
     if (result?.Success) {
       this.utilsService.createToast('保存成功');
       let orderType;
