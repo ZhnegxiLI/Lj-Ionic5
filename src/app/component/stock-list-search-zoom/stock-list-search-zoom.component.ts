@@ -4,6 +4,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { scan } from 'rxjs/operators';
 import { CommodityStockSearchCriteria } from 'src/app/data/interface/commodity-stock-search-criteria';
+import { ItemType } from 'src/app/data/interface/item-type';
+import { CommodityStockService } from 'src/app/service/commodity-stock.service';
 import { OrderValidationService } from 'src/app/service/order-validation.service';
 
 @Component({
@@ -15,6 +17,7 @@ export class StockListSearchZoomComponent implements OnInit {
   @Input() searchCriteria: CommodityStockSearchCriteria;
   @Output() criteriaChangeEvent = new EventEmitter();
 
+  itemTypeList: ItemType[] = [];
   _departmentList: any[] = [];
   _cargoList: any[] = [];
 
@@ -24,10 +27,11 @@ export class StockListSearchZoomComponent implements OnInit {
 
   searchCriteriaFilter: CommodityStockSearchCriteria = {
     clientTextSearch: '',
-    commodityTextSearch: ''
+    commodityTextSearch: '',
+    commodityType: null
   };
 
-  constructor(private orderService: OrderValidationService) {
+  constructor(private orderService: OrderValidationService, private commodityStockService: CommodityStockService) {
   }
 
   get departmentList() {
@@ -68,6 +72,11 @@ export class StockListSearchZoomComponent implements OnInit {
     const resultCargo = await this.orderService.getCargoByName(-1).toPromise();
     if (resultCargo.Success) {
       this._cargoList = resultCargo.Data || [];
+    }
+
+    const result = await this.commodityStockService.getCommodityItemType().toPromise();
+    if(result){
+      this.itemTypeList = result;
     }
   }
 

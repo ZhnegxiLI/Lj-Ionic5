@@ -54,6 +54,17 @@
       </mat-select>
     </mat-form-field>
 
-  
+    <mat-form-field appearance="fill" class="matForm" style="width: 100%">
+      <mat-label>物料分类</mat-label>
+      <mat-select
+        [(ngModel)]="searchCriteria.commodityType"
+        (closed)="searchCriteriaChangeEvent()"
+      >
+        <mat-option></mat-option>
+        <mat-option *ngFor="let item of itemTypeList" [value]="item.CommodityTypeCode"
+          >{{ item.CommodityTypeLabel }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-expansion-panel>
 </mat-accordion>
