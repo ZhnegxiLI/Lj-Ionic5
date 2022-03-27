@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
 
   getAppVersionAndEnvironment() {
     // TODO ADD VERSION TEXT
-    return environment.production ? '正式版' : '测试版';
+    return environment.environmentLabel;
   }
 
   async loadUserList() {
