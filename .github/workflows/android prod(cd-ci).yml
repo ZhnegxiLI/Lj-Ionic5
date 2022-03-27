@@ -3,7 +3,7 @@ name: (PROD)Build Android CD/CI
 on:
   push:
     tags: 
-      - 'v_*'
+      - v_*
 jobs:
   build:
        name: Build APK
