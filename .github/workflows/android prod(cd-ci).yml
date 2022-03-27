@@ -3,24 +3,24 @@ name: (PROD)Build Android CD/CI
 on:
   push:
     tags: 
-      - 'v_*'
+      - v_*
 jobs:
   build:
        name: Build APK
        runs-on: ubuntu-latest
-       environment: TEST
+       environment: PROD
        steps:
           - name: Checkout source
             uses: actions/checkout@v2
+            
+          - name: Set env
             id: vars
             run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
           - name: Check output
-            env:
-              RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-              run: |
-                echo $RELEASE_VERSION
-                echo ${{ steps.vars.outputs.tag }}
+            run: |
+              echo $RELEASE_VERSION
+              echo ${{ steps.vars.outputs.tag }}
           
           
           - name: Setup java
@@ -46,7 +46,7 @@ jobs:
             run: ionic capacitor copy android
 
           - name: Build Android Test APK
-            run: ionic capacitor build android -c test
+            run: ionic capacitor build android --prod
 
           - name: Update Android version number 
             uses: damienaicheh/update-android-version-manifest-action@v1.0.0
@@ -69,7 +69,7 @@ jobs:
             with:
               gradlePath: ./android/app/build.gradle 
               versionCode: ${{github.run_number}}
-              versionName: 1.0.0
+              versionName: 2.0.0
 
           - name: Make gradlew executable
             working-directory: ./android/
@@ -103,7 +103,7 @@ jobs:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
               upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./android/app/build/outputs/apk/debug/app-debug.apk
+              asset_path: ./android/app/build/outputs/apk/debug/app-release.apk
               asset_name: app-debug.apk
               asset_content_type: application/apk
 
@@ -123,5 +123,5 @@ jobs:
                # Required recipients' addresses:
               to: ${{secrets.MAIL_TO}}
               from: 麗錦紡織 # <user@example.com>
-              body: 新的正式版({{steps.vars.outputs.tag}})已发布，请确认功能运作正常
+              body: 新的正式版(${{steps.vars.outputs.tag}})已发布，请确认功能运作正常
               attachments: ./android/app/build/outputs/apk/debug/app-debug.apk
