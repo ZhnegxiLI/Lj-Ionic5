@@ -1,11 +1,9 @@
-name: (TEST)Build Android CD/CI
+name: (PROD)Build Android CD/CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    tags: 
+      - 'v_*'
 jobs:
   build:
        name: Build APK
@@ -14,7 +12,17 @@ jobs:
        steps:
           - name: Checkout source
             uses: actions/checkout@v2
+            id: vars
+            run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
+          - name: Check output
+            env:
+              RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+              run: |
+                echo $RELEASE_VERSION
+                echo ${{ steps.vars.outputs.tag }}
+          
+          
           - name: Setup java
             uses: actions/setup-java@v1
             with:
@@ -83,8 +91,8 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-              tag_name: v_${{ github.run_number }}
-              release_name: Release v_${{ github.run_number }}
+              tag_name: ${{ steps.vars.outputs.tag }}
+              release_name: Release ${{ steps.vars.outputs.tag }}
               draft: false
               prerelease: false
 
@@ -111,9 +119,9 @@ jobs:
               # Optional (recommended) mail server password:
               password: ${{secrets.MAIL_PASSWORD}}
               # Required mail subject:
-              subject: Github Actions job result
+              subject: 手机app正式版发布
                # Required recipients' addresses:
               to: ${{secrets.MAIL_TO}}
-              from: 手机app正式版发布 # <user@example.com>
-              body: 新的正式版已发布，请确认功能运作正常
+              from: 麗錦紡織 # <user@example.com>
+              body: 新的正式版({{steps.vars.outputs.tag}})已发布，请确认功能运作正常
               attachments: ./android/app/build/outputs/apk/debug/app-debug.apk

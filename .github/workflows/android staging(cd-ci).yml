@@ -1,4 +1,4 @@
-name: (TEST)Build Android CD/CI
+name: (STAGING)Build Android CD/CI
 
 on:
   push:
@@ -56,6 +56,14 @@ jobs:
               versionCode: ${{github.run_number}}
               versionName: 1.0.0
 
+          - name: Update AndroidManifest.xml
+            uses: damienaicheh/update-android-manifest-package-action@v1.0.0
+            with:
+              android-manifest-path: './android/app/src/main/AndroidManifest.xml'
+              package-name: 'io.ionic.ljapp.test'
+              app-name: '麗錦紡織(测试)'
+              print-file: true
+
           - name: Make gradlew executable
             working-directory: ./android/
             run: chmod +x ./gradlew
@@ -104,9 +112,9 @@ jobs:
               # Optional (recommended) mail server password:
               password: ${{secrets.MAIL_PASSWORD}}
               # Required mail subject:
-              subject: Github Actions job result
+              subject: 手机app测试版发布
                # Required recipients' addresses:
               to: ${{secrets.MAIL_TO}}
-              from: 手机app测试版发布 # <user@example.com>
+              from: 麗錦紡織 # <user@example.com>
               body: 新的测试版已发布，请测试
               attachments: ./android/app/build/outputs/apk/debug/app-debug.apk
