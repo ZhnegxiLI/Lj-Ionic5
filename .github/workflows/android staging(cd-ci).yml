@@ -70,8 +70,11 @@ jobs:
 
           - name: Generate the Android App Bundle
             working-directory: ./android/
-            run: ./gradlew assembleRelease 
-            
+            run: | 
+              ./gradlew assembleRelease 
+              cd ./android/app/build/outputs/apk/release
+              ls
+              
           - name: Upload dev APK
             uses: actions/upload-artifact@v1
             with:
