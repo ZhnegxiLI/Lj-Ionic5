@@ -70,7 +70,7 @@ jobs:
             uses: actions/upload-artifact@v1
             with:
               name: app-dev
-              path: ./android/app/build/outputs/apk/staging/release/app-staging-release-unsigned.apk
+              path: ./android/app/build/outputs/apk/staging/debug/app-staging-debug.apk
 
           - name: Create Release
             id: create_release
@@ -90,7 +90,7 @@ jobs:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
               upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: ./android/app/build/outputs/apk/staging/release/app-staging-release-unsigned.apk
+              asset_path: ./android/app/build/outputs/apk/staging/debug/app-staging-debug.apk
               asset_name: app-debug.apk
               asset_content_type: application/apk
 
@@ -111,4 +111,4 @@ jobs:
               to: ${{secrets.MAIL_TO}}
               from: 麗錦紡織 # <user@example.com>
               body: 新的测试版已发布，请测试
-              attachments: ./android/app/build/outputs/apk/staging/release/app-staging-release-unsigned.apk
+              attachments: ./android/app/build/outputs/apk/staging/debug/app-staging-debug.apk
