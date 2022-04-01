@@ -37,6 +37,11 @@
             {{subItem.ClientType}} - {{subItem.ClientName}}({{subItem.ClientId}})
             - {{subItem.UnitQuantity}} ({{subItem.CurrentQuantity + item.Unit}} )
           </p>
+           <mat-divider></mat-divider>
+           <p *ngFor="let productionDetail of item?.ProductionDetail">
+            - {{productionDetail.ProductionNumber}} - {{productionDetail.WarehouseName}}({{productionDetail.WarehouseId}})
+            - {{productionDetail.Quantity}} 
+          </p>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
