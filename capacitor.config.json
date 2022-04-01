@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.ljapp.test",
-	"appName": "麗錦紡織(测试)",
+	"appId": "io.ionic.ljapp.prod",
+	"appName": "麗錦紡織(正式)",
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"server":{
