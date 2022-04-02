@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://120.78.217.227:8081/',
+  apiUrl: 'http://8.134.215.214:8080/',
   environmentLabel: '正式版'
 };
