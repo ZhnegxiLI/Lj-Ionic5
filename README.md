@@ -14,4 +14,7 @@
 -  ionic capacitor copy [options]
 Inputs​: platform(android/ios)
 Options: --prod , --configuration =<conf>
- 
+
+# Deploiment: 
+- If you want to launch it on UAT(Staging), commit your change then review it on github action
+- If you want to deploy it on Prod, just create a new tag then the prod release will automatically launch
