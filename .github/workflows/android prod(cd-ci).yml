@@ -54,7 +54,7 @@ jobs:
             uses: damienaicheh/update-android-manifest-package-action@v1.0.0
             with:
               android-manifest-path: './android/app/src/main/AndroidManifest.xml'
-              package-name: 'io.ionic.ljapp.prod'
+              package-name: 'io.ionic.ljapp.prod1'
               app-name: '麗錦紡織(正式)'
               print-file: true
 
